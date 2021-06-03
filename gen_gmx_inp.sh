@@ -2,7 +2,7 @@
 PATH='/home/kyllen/charmm/':$PATH
 PATH='/usr/local/gromacs/bin':$PATH
 
-#TO BE RUN IN PROT-PROT-DOCKING_# DIRECTORY 
+#TO BE RUN IN PROT-PROT-DOCKING_# DIRECTORY
 #This script generates gromacs input from lowest E strcuture pdb using vmd,charmm, gmx and python3
 
 j="${PWD##*/}";echo $j #gives current directory name
@@ -29,7 +29,7 @@ charmm -i pdb2crd_b.inp -o pdb2crd_b.out
 charmm -i pdb2crd_c.inp -o pdb2crd_c.out
 charmm -i pdb2crd_cara.inp -o pdb2crd_cara.out
 
-#move crds to a folder 
+#move crds to a folder
 
 mkdir charmm -p
 mv *.crd ./charmm
@@ -41,8 +41,8 @@ mv *.tcl ./charmm
 #copy toppar folder and toppar.str to charmm folder
 #wget -nv *link to toppar.str and toppar folder*
 wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar.str
-mkdir toppar 
-cd toppar 
+mkdir toppar
+cd toppar
 wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/par_all36_carb.prm
 wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/par_all36_cgenff.prm
 wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/par_all36_lipid.prm
@@ -102,7 +102,7 @@ mv toppar.str ./charmm
 cd charmm
 # include glycan.str - this will change for other ligands
 
-if [ `head -4 cara.crd | tail -1 | grep -Eo '[0-9]{1,}'` -eq 28 ] ;then wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/step1_pdbreader_glycan_Tn.str;mv step1_pdbreader_glycan_Tn.str step1_pdbreader_glycan.str;fi 
+if [ `head -4 cara.crd | tail -1 | grep -Eo '[0-9]{1,}'` -eq 28 ] ;then wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/step1_pdbreader_glycan_Tn.str;mv step1_pdbreader_glycan_Tn.str step1_pdbreader_glycan.str;fi
 
 if [ `head -4 cara.crd | tail -1 | grep -Eo '[0-9]{1,}'` -eq 64 ] ;then wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/step1_pdbreader_glycan_STn.str;mv step1_pdbreader_glycan_STn.str step1_pdbreader_glycan.str;fi
 
@@ -114,6 +114,7 @@ a=$(grep -F "TITLE" $j-out_pose_*.pdb | sed -e 's/TITLE//' | sed -e 's/ligand//'
 
 # include step1.inp file
 wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/step1_pdbreader.inp
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/step1_pdbreader_ligand.inp
 wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/step2.1_waterbox.inp
 wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/step2.2_ions.inp
 wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/step2_solvator.inp
@@ -128,7 +129,7 @@ charmm -i step2.1_waterbox.inp -o step2.1_waterbox.out
 charmm -i step2.2_ions.inp -o step2.2_ions.out
 charmm -i step2_solvator.inp -o step2_solvator.out
 
-#ensure checkff.py is present 
+#ensure checkff.py is present
 #change python to python command system recognizes
 wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/checkfft.py
 #sed -i 's/python/python3/' step3_pbcsetup.inp
@@ -140,7 +141,7 @@ mkdir gromacs
 
 #get script to convert .psf to .top
 
-wget -nv https://raw.githubusercontent.com/xiki-tempula/gmx_lipid17.ff/cf76996e56dc135778d09a408f40aa663be53754/g_charmm4lipid17/charmm-gui_gromacs/psf2itp.py 
+wget -nv https://raw.githubusercontent.com/xiki-tempula/gmx_lipid17.ff/cf76996e56dc135778d09a408f40aa663be53754/g_charmm4lipid17/charmm-gui_gromacs/psf2itp.py
 
 #run conversion from .psf to .top
 
@@ -161,8 +162,8 @@ wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/gromacs_
 wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/gromacs_mdps/nvt.00
 wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/gromacs_mdps/prod.00
 
-mkdir complex 
-mv * ./complex 
+mkdir complex
+mv * ./complex
 cd ..
 mv gromacs ..
 mkdir comp
