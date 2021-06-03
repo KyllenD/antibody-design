@@ -1,0 +1,13 @@
+! Read PROA
+open read card unit 1 name proa.pdb
+read segid PROA PDB unit 1
+close unit 1
+
+! Create CRD
+open write card unit 1 name proa.crd
+write coor card unit 1
+close unit 1
+
+stop 
+
+

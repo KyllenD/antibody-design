@@ -1,0 +1,13 @@
+! Read PROC
+open read card unit 3 name proc.pdb
+read segid PROC PDB unit 3
+close unit 3
+
+! Create CRD
+open write card unit 3 name proc.crd
+write coor card unit 3
+close unit 3
+
+stop
+
+

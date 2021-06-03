@@ -1,0 +1,11 @@
+! Read CARA
+open read card unit 4 name cara.pdb
+read segid CARA PDB unit 4
+close unit 4
+
+! Create CRD
+open write card unit 4 name cara.crd
+write coor card unit 4
+close unit 4
+
+stop

@@ -1,0 +1,11 @@
+! Read PROB
+open read card unit 2 name prob.pdb
+read segid PROB PDB unit 2
+close unit 2
+
+! Create CRD
+open write card unit 2 name prob.crd
+write coor card unit 2
+close unit 2
+
+stop
