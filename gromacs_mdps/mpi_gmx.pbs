@@ -7,8 +7,8 @@
 #PBS -m be
 #PBS -M none
 #PBS -r n
-#PBS -o /mnt/lustre/users/kdilsook/fe/Ar20.5_DiST/complex/test_output
-#PBS -e /mnt/lustre/users/kdilsook/fe/Ar20.5_DiST/complex/test_error
+#PBS -o chpcpath/test_output
+#PBS -e chpcpath/test_error
 #PBS
 
 module purge
@@ -16,7 +16,7 @@ module add chpc/gromacs/2020.1/openmpi-4.0.0/gcc-7.3.0
 ulimit -s unlimited
 OMP_NUM_THREADS=1
 
-pushd /mnt/lustre/users/kdilsook/fe/Ar20.5_DiST/complex
+pushd chpcpath
 EXE=/apps/chpc/chem/gromacs/2020.1/bin/gmx_mpi
 
 # _________ read inputs from the galaxy wrapper and define some variables ____________ 
