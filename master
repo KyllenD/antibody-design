@@ -22,5 +22,5 @@ $SCHRODINGER/run pv_convert.py -mode split_pv $n-out.maegz
 #run MMGBSA on pv
 $SCHRODINGER/prime_mmgbsa -OVERWRITE -prime_opt OPLS_VERSION=S-OPLS $n-out-out_pv.maegz
 
-#wget custom extract_complex.py script
+wget https://raw.githubusercontent.com/KyllenD/antibody-design/main/extract_complex.py
 $SCHRODINGER/run extract_complex.py $j-out.maegz `sort -n -k 2 -t "," $j-out-out-out.csv | head -n 1 | awk -F "," '{print $1}' | sed "s/$j//g" | sed 's/[^0-9]*//g'`
