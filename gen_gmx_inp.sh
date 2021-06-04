@@ -34,17 +34,6 @@ wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_i
 wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/crystal_image.str
 wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/checkfft.py
 wget -nv https://raw.githubusercontent.com/xiki-tempula/gmx_lipid17.ff/cf76996e56dc135778d09a408f40aa663be53754/g_charmm4lipid17/charmm-gui_gromacs/psf2itp.py 
-if [ `head -4 cara.crd | tail -1 | grep -Eo '[0-9]{1,}'` -eq 28 ] ;then wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/step1_pdbreader_glycan_Tn.str;mv step1_pdbreader_glycan_Tn.str step1_pdbreader_glycan.str;fi 
-
-if [ `head -4 cara.crd | tail -1 | grep -Eo '[0-9]{1,}'` -eq 64 ] ;then wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/step1_pdbreader_glycan_STn.str;mv step1_pdbreader_glycan_STn.str step1_pdbreader_glycan.str;fi
-
-if [ `head -4 cara.crd | tail -1 | grep -Eo '[0-9]{1,}'` -eq 121 ] ;then wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/step1_pdbreader_glycan_DiST.str;mv step1_pdbreader_glycan_DiST.str step1_pdbreader_glycan.str;fi
-
-if [ `head -4 cara.crd | tail -1 | grep -Eo '[0-9]{1,}'` -eq 49 ] ;then wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/step1_pdbreader_glycan_T.str;mv step1_pdbreader_glycan_T.str step1_pdbreader_glycan.str;fi
-
-a=$(grep -F "TITLE" $j-out_pose_*.pdb | sed -e 's/TITLE//' | sed -e 's/ligand//' |sed -e 's/^ *//g'); if [ `head -4 cara.crd | tail -1 | grep -Eo '[0-9]{1,}'` -eq 85 -a ${a} == "6ST" ];then wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/step1_pdbreader_glycan_6ST.str; mv step1_pdbreader_glycan_6ST.str step1_pdbreader_glycan.str;fi
-
-a=$(grep -F "TITLE" $j-out_pose_*.pdb | sed -e 's/TITLE//' | sed -e 's/ligand//' |sed -e 's/^ *//g'); if [ `head -4 cara.crd | tail -1 | grep -Eo '[0-9]{1,}'` -eq 85 -a ${a} == "3ST" ];then wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/step1_pdbreader_glycan_3ST.str; mv step1_pdbreader_glycan_6ST.str step1_pdbreader_glycan.str;fi
 
 pushd $MAIN/charmm/comp/toppar
 
@@ -123,6 +112,18 @@ charmm -i pdb2crd_a.inp -o pdb2crd_a.out
 charmm -i pdb2crd_b.inp -o pdb2crd_b.out
 charmm -i pdb2crd_c.inp -o pdb2crd_c.out
 charmm -i pdb2crd_cara.inp -o pdb2crd_cara.out
+if [ `head -4 cara.crd | tail -1 | grep -Eo '[0-9]{1,}'` -eq 28 ] ;then wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/step1_pdbreader_glycan_Tn.str;mv step1_pdbreader_glycan_Tn.str step1_pdbreader_glycan.str;fi 
+
+if [ `head -4 cara.crd | tail -1 | grep -Eo '[0-9]{1,}'` -eq 64 ] ;then wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/step1_pdbreader_glycan_STn.str;mv step1_pdbreader_glycan_STn.str step1_pdbreader_glycan.str;fi
+
+if [ `head -4 cara.crd | tail -1 | grep -Eo '[0-9]{1,}'` -eq 121 ] ;then wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/step1_pdbreader_glycan_DiST.str;mv step1_pdbreader_glycan_DiST.str step1_pdbreader_glycan.str;fi
+
+if [ `head -4 cara.crd | tail -1 | grep -Eo '[0-9]{1,}'` -eq 49 ] ;then wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/step1_pdbreader_glycan_T.str;mv step1_pdbreader_glycan_T.str step1_pdbreader_glycan.str;fi
+
+a=$(grep -F "TITLE" $j-out_pose_*.pdb | sed -e 's/TITLE//' | sed -e 's/ligand//' |sed -e 's/^ *//g'); if [ `head -4 cara.crd | tail -1 | grep -Eo '[0-9]{1,}'` -eq 85 -a ${a} == "6ST" ];then wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/step1_pdbreader_glycan_6ST.str; mv step1_pdbreader_glycan_6ST.str step1_pdbreader_glycan.str;fi
+
+a=$(grep -F "TITLE" $j-out_pose_*.pdb | sed -e 's/TITLE//' | sed -e 's/ligand//' |sed -e 's/^ *//g'); if [ `head -4 cara.crd | tail -1 | grep -Eo '[0-9]{1,}'` -eq 85 -a ${a} == "3ST" ];then wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/step1_pdbreader_glycan_3ST.str; mv step1_pdbreader_glycan_6ST.str step1_pdbreader_glycan.str;fi
+
 #copy toppar folder and toppar.str to charmm folder
 #wget -nv *link to toppar.str and toppar folder*
 # include glycan.str - this will change for other ligands
