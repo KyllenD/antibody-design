@@ -8,8 +8,11 @@ PATH='/usr/local/gromacs/bin':$PATH
 j="${PWD##*/}";echo $j #gives current directory name
 
 MAIN=`pwd`
+mkdir $MAIN/charmm/
+mkdir $MAIN/charmm/comp/
 mkdir $MAIN/charmm/comp/gromacs
 mkdir $MAIN/charmm/comp/toppar
+mkdir $MAIN/charmm/lig/
 mkdir $MAIN/charmm/lig/gromacs
 mkdir $MAIN/charmm/lig/toppar
 mkdir $MAIN/gromacs/
