@@ -98,7 +98,7 @@ wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/gromacs_
 wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/gromacs_mdps/npt.00
 wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/gromacs_mdps/nvt.00
 wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/gromacs_mdps/prod.00
-
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/gromacs_mdps/mpi_gmx.pbs
 
 cp $MAIN/$j-out_pose_*.pdb $MAIN/charmm/comp/
 pushd $MAIN/charmm/comp/
@@ -166,6 +166,7 @@ gmx editconf -f step3_pbcsetup.pdb -o step3_input.gro -box `head -3 step3_pbcset
 mv step3_input.gro ./gromacs
 cp $MAIN/gromacs/complex/*.00 $MAIN/charmm/lig/gromacs
 cp $MAIN/gromacs/complex/*.sh $MAIN/charmm/lig/gromacs
+cp $MAIN/gromacs/complex/*.pbs $MAIN/charmm/lig/gromacs
 pushd $MAIN/charmm/lig
 mv $MAIN/charmm/lig/gromacs $MAIN/charmm/lig/ligand 
 mv $MAIN/charmm/lig/ligand $MAIN/gromacs/
