@@ -12,7 +12,7 @@ def main(argv):
    fname = args.Input # just the name of file to load
    n = args.Pose # 1-based index
    st = structure.StructureReader.read(fname, index=n)
-   modified_fname = fname.replace(".maegz","") + "_pose_" + str(n) + ".mae"
+   modified_fname = fname.replace(".maegz","") + "_pose_" + str(n) + ".pdb"
    with structure.StructureWriter(modified_fname) as writer:
       writer.append(st)
 
