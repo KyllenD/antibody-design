@@ -5,16 +5,16 @@ n= complex_ligand
 
 #complex.pdb as initial receptor structure
 #mv complex.pdb complex_unprocessed.pdb
-$SCHRODINGER/utilities/prepwizard -disulfides -glycosylation -samplewater -propka_pH 7.0 -rmsd 0.3 complex_unprocessed.pdb complex.mae
+$SCHRODINGER/utilities/prepwizard -disulfides -glycosylation -samplewater -propka_pH 7.0 -rmsd 0.3 complex_unprocessed.pdb complex.pdb
 #identify and rename chains H,L vmd
 
 #ligand.pdb as initial ligand structure
 #mv ligand.pdb ligand_unprocessed.pdb
-$SCHRODINGER/utilities/prepwizard -disulfides -glycosylation -samplewater -propka_pH 7.0 -rmsd 0.3 ligand_unprocessed.pdb ligand.mae
+$SCHRODINGER/utilities/prepwizard -disulfides -glycosylation -samplewater -propka_pH 7.0 -rmsd 0.3 ligand_unprocessed.pdb ligand.pdb
 #identify and rename chains C use vmd
 
 #Antibody docking
-$SCHRODINGER/run -FROM psp piper.py -jobname $n -receptor complex.mae -receptor_chain L,H -poses 30 -rotations 70000 -OMPI 24 -JOBID -antibody -ligand ligand.mae -ligand_chain C -use_nonstandard_residue yes
+$SCHRODINGER/run -FROM psp piper.py -jobname $n -receptor complex.pdb -receptor_chain L,H -poses 30 -rotations 70000 -OMPI 24 -JOBID -antibody -ligand ligand.pdb -ligand_chain C,L -use_nonstandard_residue yes
 
 #convert docking output to pv
 $SCHRODINGER/run pv_convert.py -mode split_pv $n-out.maegz
