@@ -8,14 +8,14 @@ PATH='/usr/local/gromacs/bin':$PATH
 j="${PWD##*/}";echo $j #gives current directory name
 
 MAIN=`pwd`
-mkdir $MAIN/charmm/
-mkdir $MAIN/charmm/comp/
-mkdir $MAIN/charmm/comp/gromacs
-mkdir $MAIN/charmm/comp/toppar
-mkdir $MAIN/charmm/lig/
-mkdir $MAIN/charmm/lig/gromacs
-mkdir $MAIN/charmm/lig/toppar
-mkdir $MAIN/gromacs/
+mkdir $MAIN/charmm/ -p  
+mkdir $MAIN/charmm/comp/ -p
+mkdir $MAIN/charmm/comp/gromacs -p
+mkdir $MAIN/charmm/comp/toppar -p
+mkdir $MAIN/charmm/lig/ -p
+mkdir $MAIN/charmm/lig/gromacs -p
+mkdir $MAIN/charmm/lig/toppar -p
+mkdir $MAIN/gromacs/ -p
 
 pushd $MAIN/charmm/comp/
 
@@ -147,15 +147,15 @@ gmx editconf -f step3_pbcsetup.pdb -o step3_input.gro -box `head -3 step3_pbcset
 mv step3_input.gro ./gromacs
 #copy gmx files needed for sims i.e .00 scripts and .sh file
 
-mv $MAIN/charmm/comp/gromacs $MAIN/charmm/comp/complex
-mv $MAIN/charmm/comp/complex $MAIN/gromacs/
+cp $MAIN/charmm/comp/gromacs $MAIN/charmm/comp/complex
+cp $MAIN/charmm/comp/complex $MAIN/gromacs/
 pushd $MAIN/charmm/lig
-mv $MAIN/charmm/comp/*.inp $MAIN/charmm/lig
-mv $MAIN/charmm/comp/toppar $MAIN/charmm/lig
-mv $MAIN/charmm/comp/*.str $MAIN/charmm/lig
-mv $MAIN/charmm/comp/checkfft.py $MAIN/charmm/lig
-mv $MAIN/charmm/comp/*.crd $MAIN/charmm/lig
-mv $MAIN/charmm/comp/psf2itp.py $MAIN/charmm/lig
+cp $MAIN/charmm/comp/*.inp $MAIN/charmm/lig
+cp $MAIN/charmm/comp/toppar $MAIN/charmm/lig
+cp $MAIN/charmm/comp/*.str $MAIN/charmm/lig
+cp $MAIN/charmm/comp/checkfft.py $MAIN/charmm/lig
+cp $MAIN/charmm/comp/*.crd $MAIN/charmm/lig
+cp $MAIN/charmm/comp/psf2itp.py $MAIN/charmm/lig
 charmm -i step1_pdbreader_ligand.inp -o step1_pdbreader_ligand.out
 charmm -i step2.1_waterbox.inp -o step2.1_waterbox.out
 charmm -i step2.2_ions.inp -o step2.2_ions.out
@@ -163,11 +163,11 @@ charmm -i step2_solvator.inp -o step2_solvator.out
 charmm -i step3_pbcsetup.inp -o step3_pbcsetup.out
 python3 psf2itp.py toppar.str step3_pbcsetup.psf
 gmx editconf -f step3_pbcsetup.pdb -o step3_input.gro -box `head -3 step3_pbcsetup.str | tail -1 | grep -Eo '[0-9]{1,}'` `head -3 step3_pbcsetup.str | tail -1 | grep -Eo '[0-9]{1,}'` `head -3 step3_pbcsetup.str | tail -1 | grep -Eo '[0-9]{1,}'`
-mv step3_input.gro ./gromacs
+cp step3_input.gro ./gromacs
 cp $MAIN/gromacs/complex/*.00 $MAIN/charmm/lig/gromacs
 cp $MAIN/gromacs/complex/*.sh $MAIN/charmm/lig/gromacs
 cp $MAIN/gromacs/complex/*.pbs $MAIN/charmm/lig/gromacs
 pushd $MAIN/charmm/lig
-mv $MAIN/charmm/lig/gromacs $MAIN/charmm/lig/ligand 
-mv $MAIN/charmm/lig/ligand $MAIN/gromacs/
+cp $MAIN/charmm/lig/gromacs $MAIN/charmm/lig/ligand 
+cp $MAIN/charmm/lig/ligand $MAIN/gromacs/
 echo GROMACS INPUTS GENERATED 
