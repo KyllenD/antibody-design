@@ -147,11 +147,11 @@ gmx editconf -f step3_pbcsetup.pdb -o step3_input.gro -box `head -3 step3_pbcset
 mv step3_input.gro ./gromacs
 #copy gmx files needed for sims i.e .00 scripts and .sh file
 
-cp $MAIN/charmm/comp/gromacs $MAIN/charmm/comp/complex
-cp $MAIN/charmm/comp/complex $MAIN/gromacs/
+cp -r $MAIN/charmm/comp/gromacs $MAIN/charmm/comp/complex
+cp -r $MAIN/charmm/comp/complex $MAIN/gromacs/
 pushd $MAIN/charmm/lig
 cp $MAIN/charmm/comp/*.inp $MAIN/charmm/lig
-cp $MAIN/charmm/comp/toppar $MAIN/charmm/lig
+cp -r $MAIN/charmm/comp/toppar $MAIN/charmm/lig
 cp $MAIN/charmm/comp/*.str $MAIN/charmm/lig
 cp $MAIN/charmm/comp/checkfft.py $MAIN/charmm/lig
 cp $MAIN/charmm/comp/*.crd $MAIN/charmm/lig
@@ -168,6 +168,6 @@ cp $MAIN/gromacs/complex/*.00 $MAIN/charmm/lig/gromacs
 cp $MAIN/gromacs/complex/*.sh $MAIN/charmm/lig/gromacs
 cp $MAIN/gromacs/complex/*.pbs $MAIN/charmm/lig/gromacs
 pushd $MAIN/charmm/lig
-cp $MAIN/charmm/lig/gromacs $MAIN/charmm/lig/ligand 
-cp $MAIN/charmm/lig/ligand $MAIN/gromacs/
+cp -r $MAIN/charmm/lig/gromacs $MAIN/charmm/lig/ligand 
+cp -r $MAIN/charmm/lig/ligand $MAIN/gromacs/
 echo GROMACS INPUTS GENERATED 
