@@ -122,7 +122,7 @@ if [ `head -4 cara.crd | tail -1 | grep -Eo '[0-9]{1,}'` -eq 49 ] ;then wget -nv
 
 a=$(grep -F "TITLE" $j-out_pose_*.pdb | sed -e 's/TITLE//' | sed -e 's/ligand//' |sed -e 's/^ *//g'); if [ `head -4 cara.crd | tail -1 | grep -Eo '[0-9]{1,}'` -eq 85 -a ${a} == "6ST" ] ;then wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/step1_pdbreader_glycan_6ST.str; mv step1_pdbreader_glycan_6ST.str step1_pdbreader_glycan.str;fi
 
-a=$(grep -F "TITLE" $j-out_pose_*.pdb | sed -e 's/TITLE//' | sed -e 's/ligand//' |sed -e 's/^ *//g'); if [ `head -4 cara.crd | tail -1 | grep -Eo '[0-9]{1,}'` -eq 85 -a ${a} == "3ST" ] ;then wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/step1_pdbreader_glycan_3ST.str; mv step1_pdbreader_glycan_6ST.str step1_pdbreader_glycan.str;fi
+a=$(grep -F "TITLE" $j-out_pose_*.pdb | sed -e 's/TITLE//' | sed -e 's/ligand//' |sed -e 's/^ *//g'); if [ `head -4 cara.crd | tail -1 | grep -Eo '[0-9]{1,}'` -eq 85 -a ${a} == "3ST" ] ;then wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/step1_pdbreader_glycan_3ST.str; mv step1_pdbreader_glycan_3ST.str step1_pdbreader_glycan.str;fi
 
 #copy toppar folder and toppar.str to charmm folder
 #wget -nv *link to toppar.str and toppar folder*
