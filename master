@@ -14,7 +14,7 @@ $SCHRODINGER/utilities/prepwizard -disulfides -glycosylation -samplewater -propk
 #identify and rename chains C use vmd
 
 #Antibody docking
-$SCHRODINGER/run -FROM psp piper.py -jobname $n -receptor complex.pdb -receptor_chain L,H -poses 30 -rotations 70000 -OMPI 24 -JOBID -antibody -ligand ligand.pdb -ligand_chain C,L -use_nonstandard_residue yes
+$SCHRODINGER/run -FROM psp piper.py -jobname $n -receptor complex.pdb -receptor_chain L,H -poses 30 -rotations 70000 -OMPI 24 -JOBID -antibody -ligand ligand.pdb -ligand_chain C,P -use_nonstandard_residue yes
 
 #convert docking output to pv
 $SCHRODINGER/run pv_convert.py -mode split_pv $n-out.maegz
