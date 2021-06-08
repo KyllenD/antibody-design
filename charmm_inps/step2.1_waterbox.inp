@@ -18,9 +18,9 @@ read coor unit 10 card
 coor orient 
 coor stat sele all end
 
-calc Xinit = int ( ( ?Xmax - ?Xmin ) + 2 * 5 ) + 1
-calc Yinit = int ( ( ?Ymax - ?Ymin ) + 2 * 5 ) + 1
-calc Zinit = int ( ( ?Zmax - ?Zmin ) + 2 * 5 ) + 1
+calc Xinit = int ( ( ?Xmax - ?Xmin ) + 2 * 1 ) + 1
+calc Yinit = int ( ( ?Ymax - ?Ymin ) + 2 * 1 ) + 1
+calc Zinit = int ( ( ?Zmax - ?Zmin ) + 2 * 1 ) + 1
 calc Lbox = @Xinit
 if Yinit .gt. @Lbox calc Lbox = @Yinit
 if Zinit .gt. @Lbox calc Lbox = @Zinit
