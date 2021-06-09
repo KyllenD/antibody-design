@@ -1,29 +1,38 @@
 #!/bin/bash
 #Specify Schrodinger path
-#ensure directory is named $n
-n= complex_ligand
-#script needed to set cahin names fro ligand and receptor
+#usage ./master receptor_name.pdb ligand_name.pdb
+#input structures must be prepared so that H,L chians named on receptor and P,C sugars on ligand
+x=${1%.pdb}
+y=${2%.pdb}
+n="$x"_"$y"
+echo Jobname: $n
+
+#script needed to set chain names fro ligand and receptor
 #complex.pdb as initial receptor structure
-#mv complex.pdb complex_unprocessed.pdb
-$SCHRODINGER/utilities/prepwizard -disulfides -glycosylation -samplewater -propka_pH 7.0 -rmsd 0.3 complex_unprocessed.pdb complex.pdb
+
+mv $1 receptor_unprocessed.pdb
+
+$SCHRODINGER/utilities/prepwizard -disulfides -glycosylation -samplewater -propka_pH 7.0 -rmsd 0.3 receptor_unprocessed.pdb $1 -WAIT
+
 #identify and rename chains H,L vmd
 
 #ligand.pdb as initial ligand structure
-#mv ligand.pdb ligand_unprocessed.pdb
-$SCHRODINGER/utilities/prepwizard -disulfides -glycosylation -samplewater -propka_pH 7.0 -rmsd 0.3 ligand_unprocessed.pdb ligand.pdb
-#identify and rename chains C use vmd
+mv $2 ligand_unprocessed.pdb
+$SCHRODINGER/utilities/prepwizard -disulfides -glycosylation -samplewater -propka_pH 7.0 -rmsd 0.3 ligand_unprocessed.pdb $2 -WAIT
+#identify and rename chains C,P vmd
+
 
 #Antibody docking
-$SCHRODINGER/run -FROM psp piper.py -jobname $n -receptor complex.pdb -receptor_chain L,H -poses 30 -rotations 70000 -OMPI 24 -JOBID -antibody -ligand ligand.pdb -ligand_chain C,P -use_nonstandard_residue yes
+$SCHRODINGER/run -FROM psp piper.py -jobname $n -receptor $1 -receptor_chain A,B -poses 30 -rotations 70000 -OMPI 24 -JOBID -antibody -ligand $2 -ligand_chain C,P -use_nonstandard_residue yes -WAIT
 
 #convert docking output to pv
-$SCHRODINGER/run pv_convert.py -mode split_pv $n-out.maegz
+$SCHRODINGER/run pv_convert.py -mode split_pv $n-out.maegz -WAIT
 
 #run MMGBSA on pv
-$SCHRODINGER/prime_mmgbsa -OVERWRITE -prime_opt OPLS_VERSION=S-OPLS $n-out-out_pv.maegz
+$SCHRODINGER/prime_mmgbsa -OVERWRITE -prime_opt OPLS_VERSION=S-OPLS $n-out-out_pv.maegz -WAIT
 
 wget https://raw.githubusercontent.com/KyllenD/antibody-design/main/extract_complex.py
-$SCHRODINGER/run extract_complex.py $j-out.maegz `sort -n -k 2 -t "," $j-out-out-out.csv | head -n 1 | awk -F "," '{print $1}' | sed "s/$j//g" | sed 's/[^0-9]*//g'`
+$SCHRODINGER/run extract_complex.py $j-out.maegz `sort -n -k 2 -t "," $j-out-out-out.csv | head -n 1 | awk -F "," '{print $1}' | sed "s/$j//g" | sed 's/[^0-9]*//g'` -WAIT
 
 #ensures title is included so 6St and 3St sugars can be distinguished
 sed -i "3a\TITLE $n\\" $n-out_pose_*.pdb
