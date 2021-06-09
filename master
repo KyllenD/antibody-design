@@ -1,6 +1,6 @@
 #!/bin/bash
 #Specify Schrodinger path
-
+#ensure directory is named $n
 n= complex_ligand
 #script needed to set cahin names fro ligand and receptor
 #complex.pdb as initial receptor structure
