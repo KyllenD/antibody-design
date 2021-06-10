@@ -24,7 +24,8 @@ $SCHRODINGER/utilities/prepwizard -disulfides -glycosylation -samplewater -propk
 
 #Antibody docking
 $SCHRODINGER/run -FROM psp piper.py -jobname $n -receptor $1 -receptor_chain A,B -poses 30 -rotations 70000 -OMPI 24 -JOBID -antibody -ligand $2 -ligand_chain C,P -use_nonstandard_residue yes -WAIT
-
+sleep 1m
+while grep -q "Piper Error" $n.log;do `$SCHRODINGER/run -FROM psp piper.py -jobname $n -receptor $1 -receptor_chain A,B -poses 30 -rotations 70000 -OMPI 24 -JOBID -antibody -ligand $2 -ligand_chain C,P -use_nonstandard_residue yes -WAIT`;sleep 1m;done
 #convert docking output to pv
 $SCHRODINGER/run pv_convert.py -mode split_pv $n-out.maegz 
 
