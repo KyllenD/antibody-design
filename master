@@ -26,13 +26,13 @@ $SCHRODINGER/utilities/prepwizard -disulfides -glycosylation -samplewater -propk
 $SCHRODINGER/run -FROM psp piper.py -jobname $n -receptor $1 -receptor_chain A,B -poses 30 -rotations 70000 -OMPI 24 -JOBID -antibody -ligand $2 -ligand_chain C,P -use_nonstandard_residue yes -WAIT
 
 #convert docking output to pv
-$SCHRODINGER/run pv_convert.py -mode split_pv $n-out.maegz -WAIT
+$SCHRODINGER/run pv_convert.py -mode split_pv $n-out.maegz 
 
 #run MMGBSA on pv
 $SCHRODINGER/prime_mmgbsa -OVERWRITE -prime_opt OPLS_VERSION=S-OPLS $n-out-out_pv.maegz -WAIT
 
 wget https://raw.githubusercontent.com/KyllenD/antibody-design/main/extract_complex.py
-$SCHRODINGER/run extract_complex.py $n-out.maegz `sort -n -k 2 -t "," $n-out-out-out.csv | head -n 1 | awk -F "," '{print $1}' | sed "s/$j//g" | sed 's/[^0-9]*//g'` -WAIT
+$SCHRODINGER/run extract_complex.py $n-out.maegz `sort -n -k 2 -t "," $n-out-out-out.csv | head -n 1 | awk -F "," '{print $1}' | sed "s/$n//g" | sed 's/[^0-9]*//g'` 
 
 #ensures title is included so 6St and 3St sugars can be distinguished
 sed -i "3a\TITLE $n\\" $n-out_pose_*.pdb
