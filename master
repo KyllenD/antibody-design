@@ -2,30 +2,38 @@
 #Specify Schrodinger path
 #usage ./master receptor_name.pdb ligand_name.pdb
 #input structures must be prepared so that H,L chians named on receptor and P,C sugars on ligand
-x=${1%.pdb}
-y=${2%.pdb}
+for j in Antibodies/* 
+do
+for g in Ligands/*
+do
+x=`echo ${j%.pdb} | sed 's|Antibodies/||'`
+y=`echo ${g%.pdb} | sed 's|Ligands/||'`
 n="$x"_"$y"
 echo Jobname: $n
-
+mkdir Results
+cd Results
+mkdir $n
+cd $n
 #script needed to set chain names fro ligand and receptor
 #complex.pdb as initial receptor structure
 
-mv $1 receptor_unprocessed.pdb
+cp ../../$j ./receptor_unprocessed.pdb
 
-$SCHRODINGER/utilities/prepwizard -disulfides -glycosylation -samplewater -propka_pH 7.0 -rmsd 0.3 receptor_unprocessed.pdb $1 -WAIT
+$SCHRODINGER/utilities/prepwizard -disulfides -glycosylation -samplewater -propka_pH 7.0 -rmsd 0.3 receptor_unprocessed.pdb $x.pdb -WAIT
 
 #identify and rename chains H,L vmd
 
 #ligand.pdb as initial ligand structure
-mv $2 ligand_unprocessed.pdb
-$SCHRODINGER/utilities/prepwizard -disulfides -glycosylation -samplewater -propka_pH 7.0 -rmsd 0.3 ligand_unprocessed.pdb $2 -WAIT
+cp ../../$g ./ligand_unprocessed.pdb
+$SCHRODINGER/utilities/prepwizard -disulfides -glycosylation -samplewater -propka_pH 7.0 -rmsd 0.3 ligand_unprocessed.pdb $y.pdb -WAIT
 #identify and rename chains C,P vmd
 
 
 #Antibody docking
-$SCHRODINGER/run -FROM psp piper.py -jobname $n -receptor $1 -receptor_chain A,B -poses 30 -rotations 70000 -OMPI 24 -JOBID -antibody -ligand $2 -ligand_chain C,P -use_nonstandard_residue yes -WAIT
+$SCHRODINGER/run -FROM psp piper.py -jobname $n -receptor $x.pdb -receptor_chain H,L -poses 30 -rotations 70000 -OMPI 24 -JOBID -antibody -ligand $y.pdb -ligand_chain P,C -use_nonstandard_residue yes -WAIT
 sleep 1m
-while grep -q "Piper Error" $n.log;do `$SCHRODINGER/run -FROM psp piper.py -jobname $n -receptor $1 -receptor_chain A,B -poses 30 -rotations 70000 -OMPI 24 -JOBID -antibody -ligand $2 -ligand_chain C,P -use_nonstandard_residue yes -WAIT`;sleep 1m;done
+while grep -q "Piper Error" $n.log;do `$SCHRODINGER/run -FROM psp piper.py -jobname $n -receptor $x.pdb -receptor_chain H,L -poses 30 -rotations 70000 -OMPI 24 -JOBID -antibody -ligand $y.pdb -ligand_chain P,C -use_nonstandard_residue yes -WAIT`;sleep 1m;done
+
 #convert docking output to pv
 $SCHRODINGER/run pv_convert.py -mode split_pv $n-out.maegz 
 
@@ -43,3 +51,6 @@ sed -i "3a\TITLE $n\\" $n-out_pose_*.pdb
 wget https://raw.githubusercontent.com/KyllenD/antibody-design/main/gen_gmx_inp.sh
 chmod +x gen_gmx_inp.sh
 ./gen_gmx_inp.sh
+cd ../../
+done
+done
