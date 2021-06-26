@@ -124,6 +124,8 @@ a=$(grep -F "TITLE" $j-out_pose_*.pdb | sed -e 's/TITLE//' | sed -e 's/ligand//'
 
 a=$(grep -F "TITLE" $j-out_pose_*.pdb | sed -e 's/TITLE//' | sed -e 's/ligand//' |sed -e 's/^ *//g'); if [ `head -4 cara.crd | tail -1 | grep -Eo '[0-9]{1,}'` -eq 85 -a ${a} == "3ST" ] ;then wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/step1_pdbreader_glycan_3ST.str; mv step1_pdbreader_glycan_3ST.str step1_pdbreader_glycan.str;fi
 
+y=`find "cara.crd" -printf "%s"`;if [ $y -eq 0 ]; then sed -i '40d' step1_pdbreader.inp;  sed -i '20d' step1_pdbreader_ligand.inp; fi
+
 #copy toppar folder and toppar.str to charmm folder
 #wget -nv *link to toppar.str and toppar folder*
 # include glycan.str - this will change for other ligands
