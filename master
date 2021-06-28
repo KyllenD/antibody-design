@@ -9,25 +9,32 @@ do
 x=`echo ${j%.pdb} | sed 's|Antibodies/||'`
 y=`echo ${g%.pdb} | sed 's|Ligands/||'`
 n="$x"_"$y"
+F=`pwd`
 echo Jobname: $n
-mkdir Results
-cd Results
-mkdir $n
-cd $n
+mkdir -p $F/Results
+cd $F/Results
+
+if [ -d "$n" -a `ls ./"$n" | wc -l` -eq 18 ];then pushd $F;continue; else mkdir -p $n;fi
+
+#mkdir -p $n
+cd $F/Results/$n
 #script needed to set chain names fro ligand and receptor
 #complex.pdb as initial receptor structure
 
 cp ../../$j ./receptor_unprocessed.pdb
 
-$SCHRODINGER/utilities/prepwizard -disulfides -glycosylation -samplewater -propka_pH 7.0 -rmsd 0.3 receptor_unprocessed.pdb $x.pdb -WAIT
+$SCHRODINGER/utilities/prepwizard -disulfides -glycosylation -samplewater -propka_pH 7.0 -rmsd 0.3 receptor_unprocessed.pdb $x.pdb -f 3 -WAIT
 
 #identify and rename chains H,L vmd
 
 #ligand.pdb as initial ligand structure
 cp ../../$g ./ligand_unprocessed.pdb
-$SCHRODINGER/utilities/prepwizard -disulfides -glycosylation -samplewater -propka_pH 7.0 -rmsd 0.3 ligand_unprocessed.pdb $y.pdb -WAIT
+$SCHRODINGER/utilities/prepwizard -disulfides -glycosylation -samplewater -propka_pH 7.0 -rmsd 0.3 ligand_unprocessed.pdb $y.pdb -f 3 -WAIT
 #identify and rename chains C,P vmd
 
+if grep -q "NO OUTPUT STRUCTURES WERE WRITTEN" receptor_unprocessed.log;then echo "Structure could not be minimized to RMSD of 0.3. Skipping $x"; continue 2;fi
+
+if grep -q "NO OUTPUT STRUCTURES WERE WRITTEN" ligand_unprocessed.log;then echo "Structure could not be minimized to RMSD of 0.3. Skipping $y"; continue 1;fi
 
 #Antibody docking
 $SCHRODINGER/run -FROM psp piper.py -jobname $n -receptor $x.pdb -receptor_chain H,L -poses 30 -rotations 70000 -OMPI 24 -JOBID -antibody -ligand $y.pdb -ligand_chain P,C -use_nonstandard_residue yes -WAIT
@@ -39,6 +46,8 @@ $SCHRODINGER/run pv_convert.py -mode split_pv $n-out.maegz
 
 #run MMGBSA on pv
 $SCHRODINGER/prime_mmgbsa -OVERWRITE -prime_opt OPLS_VERSION=S-OPLS $n-out-out_pv.maegz -WAIT
+sleep 1m
+while grep -q "MMGBSA Error" $n-out-out.log;do $SCHRODINGER/prime_mmgbsa -OVERWRITE -prime_opt OPLS_VERSION=S-OPLS $n-out-out_pv.maegz -WAIT; sleep 1m;done
 
 wget https://raw.githubusercontent.com/KyllenD/antibody-design/main/extract_complex.py
 $SCHRODINGER/run extract_complex.py $n-out.maegz `sort -n -k 2 -t "," $n-out-out-out.csv | head -n 1 | awk -F "," '{print $1}' | sed "s/$n//g" | sed 's/[^0-9]*//g'` 
