@@ -1,5 +1,5 @@
 #!/bin/bash
-#PBS -P CBBI1063
+#PBS -P projectcode
 #PBS -N comp_sys
 #PBS -l select=1:ncpus=24:mpiprocs=24
 #PBS -l walltime=24:00:00
