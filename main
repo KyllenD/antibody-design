@@ -1,6 +1,6 @@
 #!/bin/bash
 #Specify Schrodinger path
-#usage ./master receptor_name.pdb ligand_name.pdb
+#usage ./main receptor_name.pdb ligand_name.pdb
 #input structures must be prepared so that H,L chians named on receptor and P,C sugars on ligand
 for j in Antibodies/* 
 do
