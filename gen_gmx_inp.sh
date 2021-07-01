@@ -1,5 +1,5 @@
 #!/bin/bash
-PATH='/home/kdilsook/charmm/bin':$PATH
+PATH='/home/kdilsook/charmm/build/cmake':$PATH
 PATH='/usr/local/gromacs/bin':$PATH
 
 #TO BE RUN IN PROT-PROT-DOCKING_# DIRECTORY 
