@@ -2,7 +2,7 @@
 #PBS -P projectcode
 #PBS -N comp_sys
 #PBS -l select=1:ncpus=24:mpiprocs=24
-#PBS -l walltime=24:00:00
+#PBS -l walltime=48:00:00
 #PBS -q smp
 #PBS -m be
 #PBS -M none
@@ -21,7 +21,7 @@ EXE=/apps/chpc/chem/gromacs/2020.1/bin/gmx_mpi
 
 # _________ read inputs from the galaxy wrapper and define some variables ____________ 
 
-lam=19
+lam=10
 iter=$((lam+1))
 
 mkdir MDP -p 
