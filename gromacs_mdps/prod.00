@@ -36,7 +36,7 @@ rlist                    = 1.2
 coulombtype              = PME
 coulomb-modifier         = none
 rcoulomb                 = 1.2
-fourierspacing           = 0.25
+fourierspacing           = 0.667
 pme_order                = 4
 ewald_rtol               = 1.0E-5
 
