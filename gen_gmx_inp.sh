@@ -98,7 +98,8 @@ wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/gromacs_
 wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/gromacs_mdps/npt.00
 wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/gromacs_mdps/nvt.00
 wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/gromacs_mdps/prod.00
-wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/gromacs_mdps/mpi_gmx.pbs
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/gromacs_mdps/mpi_gmx_complex.pbs
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/gromacs_mdps/mpi_gmx_ligand.pbs
 
 cp $MAIN/$j-out_pose_*.pdb $MAIN/charmm/comp/
 pushd $MAIN/charmm/comp/
