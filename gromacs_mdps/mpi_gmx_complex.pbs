@@ -130,7 +130,6 @@ do
 
     cd $FREE_ENERGY
 done
-mv *.mdp $MDP
 
 cp Lambda_*/Production_MD/*.xvg data/
 tar cf data.tar data/
