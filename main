@@ -128,7 +128,7 @@ echo Jobname: $n
 mkdir -p $F/Results
 cd $F/Results
 
-if [ -d "$n" -a `ls ./"$n" | wc -l` -eq 18 ];then pushd $F;continue; else mkdir -p $n;fi
+if [ -d "$n" -a `ls ./"$n" | wc -l` -eq 3 ];then pushd $F;continue; else mkdir -p $n;fi
 
 
 cd $F/Results/$n
