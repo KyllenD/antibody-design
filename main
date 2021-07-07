@@ -1,7 +1,121 @@
 #!/bin/bash
-#Specify Schrodinger path
-#usage ./main receptor_name.pdb ligand_name.pdb
+#Specify Schrodinger,Charmm and gromacs paths
+#PATH='/home/kdilsook/charmm/build/cmake':$PATH
+PATH='/home/kyllen/charmm':$PATH
+PATH='/usr/local/gromacs/bin':$PATH
+
+F=`pwd`
+MAIN=$F/tmp
+
+if  [ ! -d tmp ] ;then 
+mkdir tmp -p
+mkdir $MAIN/charmm/ -p
+mkdir $MAIN/charmm/comp/ -p
+mkdir $MAIN/charmm/comp/gromacs -p
+mkdir $MAIN/charmm/comp/toppar -p
+mkdir $MAIN/charmm/lig/ -p
+mkdir $MAIN/charmm/lig/gromacs -p
+mkdir $MAIN/charmm/lig/toppar -p
+mkdir $MAIN/gromacs/ -p
+
+pushd $MAIN
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/step1_pdbreader_glycan_Tn.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/step1_pdbreader_glycan_STn.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/step1_pdbreader_glycan_DiST.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/step1_pdbreader_glycan_T.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/step1_pdbreader_glycan_6ST.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/step1_pdbreader_glycan_3ST.str
+wget https://raw.githubusercontent.com/KyllenD/antibody-design/main/extract_complex.py
+
+pushd $MAIN/charmm/comp/
+
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/tcls/extract_chains.tcl
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/pdb2crd_a.inp
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/pdb2crd_b.inp
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/pdb2crd_c.inp
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/pdb2crd_cara.inp
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/step1_pdbreader.inp
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/step1_pdbreader_ligand.inp
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/step2.1_waterbox.inp
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/step2.2_ions.inp
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/step2_solvator.inp
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/step3_pbcsetup.inp
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/crystal_image.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/checkfft.py
+wget -nv https://raw.githubusercontent.com/xiki-tempula/gmx_lipid17.ff/cf76996e56dc135778d09a408f40aa663be53754/g_charmm4lipid17/charmm-gui_gromacs/psf2itp.py
+
+pushd $MAIN/charmm/comp/toppar
+
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/par_all36_carb.prm
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/par_all36_cgenff.prm
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/par_all36_lipid.prm
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/par_all36m_prot.prm
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/par_all36_na.prm
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/par_interface.prm
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/tip216.crd
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/top_all36_carb.rtf
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/top_all36_cgenff.rtf
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/top_all36_lipid.rtf
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/top_all36_na.rtf
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/top_all36_prot.rtf
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/top_interface.rtf
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/toppar_all36_carb_glycolipid.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/toppar_all36_carb_glycopeptide.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/toppar_all36_carb_imlab.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/toppar_all36_label_fluorophore.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/toppar_all36_label_spin.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/toppar_all36_lipid_archaeal.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/toppar_all36_lipid_bacterial.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/toppar_all36_lipid_cardiolipin.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/toppar_all36_lipid_cholesterol.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/toppar_all36_lipid_dag.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/toppar_all36_lipid_detergent.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/toppar_all36_lipid_ether.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/toppar_all36_lipid_hmmm.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/toppar_all36_lipid_inositol.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/toppar_all36_lipid_lnp.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/toppar_all36_lipid_lps.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/toppar_all36_lipid_miscellaneous.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/toppar_all36_lipid_model.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/toppar_all36_lipid_mycobacterial.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/toppar_all36_lipid_prot.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/toppar_all36_lipid_sphingo.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/toppar_all36_lipid_tag.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/toppar_all36_lipid_yeast.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/toppar_all36_na_nad_ppi.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/toppar_all36_nanolig_patch.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/toppar_all36_nano_lig.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/toppar_all36_na_rna_modified.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/toppar_all36_polymer_solvent.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/toppar_all36_prot_arg0.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/toppar_all36_prot_c36m_d_aminoacids.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/toppar_all36_prot_fluoro_alkanes.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/toppar_all36_prot_heme.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/toppar_all36_prot_modify_res.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/toppar_all36_prot_na_combined.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/toppar_all36_prot_retinol.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/toppar_all36_synthetic_polymer_patch.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/toppar_all36_synthetic_polymer.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/toppar_dum_noble_gases.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/toppar_ions_won.str
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/charmm_inps/toppar/toppar_water_ions.str
+
+pushd $MAIN/charmm/comp/gromacs
+
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/gromacs_mdps/enmin.00
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/gromacs_mdps/gmx.sh
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/gromacs_mdps/npt.00
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/gromacs_mdps/nvt.00
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/gromacs_mdps/prod.00
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/gromacs_mdps/mpi_gmx_complex.pbs
+wget -nv https://raw.githubusercontent.com/KyllenD/antibody-design/main/gromacs_mdps/mpi_gmx_ligand.pbs
+fi
+
+pushd $F
+
 #input structures must be prepared so that H,L chians named on receptor and P,C sugars on ligand
+
 for j in Antibodies/* 
 do
 for g in Ligands/*
@@ -9,57 +123,132 @@ do
 x=`echo ${j%.pdb} | sed 's|Antibodies/||'`
 y=`echo ${g%.pdb} | sed 's|Ligands/||'`
 n="$x"_"$y"
-F=`pwd`
+
 echo Jobname: $n
 mkdir -p $F/Results
 cd $F/Results
 
 if [ -d "$n" -a `ls ./"$n" | wc -l` -eq 18 ];then pushd $F;continue; else mkdir -p $n;fi
 
-#mkdir -p $n
+
 cd $F/Results/$n
-#script needed to set chain names fro ligand and receptor
+
 #complex.pdb as initial receptor structure
 
 cp ../../$j ./receptor_unprocessed.pdb
-
+if [ ! -f $x.pdb  ];then
 $SCHRODINGER/utilities/prepwizard -disulfides -glycosylation -samplewater -propka_pH 7.0 -rmsd 0.3 receptor_unprocessed.pdb $x.pdb -f 3 -WAIT
-
-#identify and rename chains H,L vmd
+fi
 
 #ligand.pdb as initial ligand structure
+
 cp ../../$g ./ligand_unprocessed.pdb
+if [ ! -f $y.pdb  ];then
 $SCHRODINGER/utilities/prepwizard -disulfides -glycosylation -samplewater -propka_pH 7.0 -rmsd 0.3 ligand_unprocessed.pdb $y.pdb -f 3 -WAIT
-#identify and rename chains C,P vmd
+fi
 
-if grep -q "NO OUTPUT STRUCTURES WERE WRITTEN" receptor_unprocessed.log;then echo "Structure could not be minimized to RMSD of 0.3. Skipping $x"; continue 2;fi
+if grep -q "NO OUTPUT STRUCTURES WERE WRITTEN" receptor_unprocessed.log;then echo "Structure could not be minimized to RMSD of 0.3. Skipping $x"; pushd $F;continue 2;fi
 
-if grep -q "NO OUTPUT STRUCTURES WERE WRITTEN" ligand_unprocessed.log;then echo "Structure could not be minimized to RMSD of 0.3. Skipping $y"; continue 1;fi
+if grep -q "NO OUTPUT STRUCTURES WERE WRITTEN" ligand_unprocessed.log;then echo "Structure could not be minimized to RMSD of 0.3. Skipping $y";pushd $F; continue 1;fi
 
 #Antibody docking
+if [ ! -f $n-out.maegz ]; then
 $SCHRODINGER/run -FROM psp piper.py -jobname $n -receptor $x.pdb -receptor_chain H,L -poses 30 -rotations 70000 -OMPI 24 -JOBID -antibody -ligand $y.pdb -ligand_chain P,C -use_nonstandard_residue yes -WAIT
 sleep 1m
 while grep -q "Piper Error" $n.log;do `$SCHRODINGER/run -FROM psp piper.py -jobname $n -receptor $x.pdb -receptor_chain H,L -poses 30 -rotations 70000 -OMPI 24 -JOBID -antibody -ligand $y.pdb -ligand_chain P,C -use_nonstandard_residue yes -WAIT`;sleep 1m;done
-
+fi
 #convert docking output to pv
+if [ ! -f $n-out-out_pv.maegz ]; then
 $SCHRODINGER/run pv_convert.py -mode split_pv $n-out.maegz 
-
+fi
 #run MMGBSA on pv
+if [ ! -f $n-out-out-out.maegz ]; then
 $SCHRODINGER/prime_mmgbsa -OVERWRITE -prime_opt OPLS_VERSION=S-OPLS $n-out-out_pv.maegz -WAIT
 sleep 1m
 while grep -q "MMGBSA Error" $n-out-out.log;do $SCHRODINGER/prime_mmgbsa -OVERWRITE -prime_opt OPLS_VERSION=S-OPLS $n-out-out_pv.maegz -WAIT; sleep 1m;done
+fi
 
-wget https://raw.githubusercontent.com/KyllenD/antibody-design/main/extract_complex.py
+if [ ! -f $n-out_pose_*.pdb ]; then
+cp $MAIN/extract_complex.py .
 $SCHRODINGER/run extract_complex.py $n-out.maegz `sort -n -k 2 -t "," $n-out-out-out.csv | head -n 1 | awk -F "," '{print $1}' | sed "s/$n//g" | sed 's/[^0-9]*//g'` 
-
 #ensures title is included so 6St and 3St sugars can be distinguished
-sed -i "3a\TITLE $n\\" $n-out_pose_*.pdb
+fi
+sed -i "1iTITLE $n" $n-out_pose_*.pdb
 
 #set pdb title to $n 
 #run gen_gmx_inps.sh script
-wget https://raw.githubusercontent.com/KyllenD/antibody-design/main/gen_gmx_inp.sh
-chmod +x gen_gmx_inp.sh
-./gen_gmx_inp.sh
-cd ../../
+
+pushd $F/Results/$n
+cp -r $MAIN/charmm $F/Results/$n
+cp -r $MAIN/gromacs $F/Results/$n
+
+cp $F/Results/$n/$n-out_pose_*.pdb $F/Results/$n/charmm/comp/
+pushd $F/Results/$n/charmm/comp/
+#Ensure HIS residues are renamed HSD
+sed -i 's/HIS/HSD/' $n-out_pose_*.pdb
+#first use vmd to split pdb into chains
+sed -i "s/lowestEstr/`echo $n-out_pose_*.pdb`/" extract_chains.tcl
+vmd -dispdev text -e extract_chains.tcl
+#convert these pdb chains into charmm crd files
+charmm -i pdb2crd_a.inp -o pdb2crd_a.out
+charmm -i pdb2crd_b.inp -o pdb2crd_b.out
+charmm -i pdb2crd_c.inp -o pdb2crd_c.out
+charmm -i pdb2crd_cara.inp -o pdb2crd_cara.out
+if [ `head -4 cara.crd | tail -1 | grep -Eo '[0-9]{1,}'` -eq 28 ] ;then cp $MAIN/step1_pdbreader_glycan_Tn.str;mv step1_pdbreader_glycan_Tn.str step1_pdbreader_glycan.str;fi
+
+if [ `head -4 cara.crd | tail -1 | grep -Eo '[0-9]{1,}'` -eq 64 ] ;then cp $MAIN/step1_pdbreader_glycan_STn.str;mv step1_pdbreader_glycan_STn.str step1_pdbreader_glycan.str;fi
+
+if [ `head -4 cara.crd | tail -1 | grep -Eo '[0-9]{1,}'` -eq 121 ] ;then cp $MAIN/step1_pdbreader_glycan_DiST.str;mv step1_pdbreader_glycan_DiST.str step1_pdbreader_glycan.str;fi
+
+if [ `head -4 cara.crd | tail -1 | grep -Eo '[0-9]{1,}'` -eq 49 ] ;then cp $MAIN/step1_pdbreader_glycan_T.str;mv step1_pdbreader_glycan_T.str step1_pdbreader_glycan.str;fi
+
+a=$(sed -n '1p' $n-out_pose_*.pdb | sed -e 's/_/ /' | awk '{print $3}'); if [ `head -4 cara.crd | tail -1 | grep -Eo '[0-9]{1,}'` -eq 85 -a ${a} == "6ST" ] ;then cp $MAIN/step1_pdbreader_glycan_6ST.str .; mv step1_pdbreader_glycan_6ST.str step1_pdbreader_glycan.str;fi
+
+a=$(sed -n '1p' $n-out_pose_*.pdb | sed -e 's/_/ /' | awk '{print $3}'); if [ `head -4 cara.crd | tail -1 | grep -Eo '[0-9]{1,}'` -eq 85 -a ${a} == "3ST" ] ;then cp $MAIN/step1_pdbreader_glycan_3ST.str .; mv step1_pdbreader_glycan_3ST.str step1_pdbreader_glycan.str;fi
+
+y=`find "cara.crd" -printf "%s"`;if [ $y -eq 0 ]; then sed -i '40d' step1_pdbreader.inp;  sed -i '20d' step1_pdbreader_ligand.inp; fi
+
+#run step1 of charmm gui
+charmm -i step1_pdbreader.inp -o step1_pdbreader.out
+charmm -i step2.1_waterbox.inp -o step2.1_waterbox.out
+charmm -i step2.2_ions.inp -o step2.2_ions.out
+charmm -i step2_solvator.inp -o step2_solvator.out
+charmm -i step3_pbcsetup.inp -o step3_pbcsetup.out
+#generate gromacs inputs
+
+#run conversion from .psf to .top
+python3 psf2itp.py toppar.str step3_pbcsetup.psf
+#generate .gro and move to folder
+gmx editconf -f step3_pbcsetup.pdb -o step3_input.gro -box `head -3 step3_pbcsetup.str | tail -1 | grep -Eo '[0-9]{1,}'` `head -3 step3_pbcsetup.str | tail -1 | grep -Eo '[0-9]{1,}'` `head -3 step3_pbcsetup.str | tail -1 | grep -Eo '[0-9]{1,}'`
+mv step3_input.gro ./gromacs
+#copy gmx files needed for sims i.e .00 scripts and .sh file
+cp -r $F/Results/$n/charmm/comp/gromacs $F/Results/$n/charmm/comp/complex
+cp -r $F/Results/$n/charmm/comp/complex $F/Results/$n/gromacs/
+pushd $F/Results/$n/charmm/lig
+cp $F/Results/$n/charmm/comp/*.inp $F/Results/$n/charmm/lig
+cp -r $F/Results/$n/charmm/comp/toppar $F/Results/$n/charmm/lig
+cp $F/Results/$n/charmm/comp/*.str $F/Results/$n/charmm/lig
+cp $F/Results/$n/charmm/comp/checkfft.py $F/Results/$n/charmm/lig
+cp $F/Results/$n/charmm/comp/*.crd $F/Results/$n/charmm/lig
+cp $F/Results/$n/charmm/comp/psf2itp.py $F/Results/$n/charmm/lig
+charmm -i step1_pdbreader_ligand.inp -o step1_pdbreader_ligand.out
+charmm -i step2.1_waterbox.inp -o step2.1_waterbox.out
+charmm -i step2.2_ions.inp -o step2.2_ions.out
+charmm -i step2_solvator.inp -o step2_solvator.out
+charmm -i step3_pbcsetup.inp -o step3_pbcsetup.out
+python3 psf2itp.py toppar.str step3_pbcsetup.psf
+gmx editconf -f step3_pbcsetup.pdb -o step3_input.gro -box `head -3 step3_pbcsetup.str | tail -1 | grep -Eo '[0-9]{1,}'` `head -3 step3_pbcsetup.str | tail -1 | grep -Eo '[0-9]{1,}'` `head -3 step3_pbcsetup.str | tail -1 | grep -Eo '[0-9]{1,}'`
+cp step3_input.gro ./gromacs
+cp $F/Results/$n/gromacs/complex/*.00 $F/Results/$n/charmm/lig/gromacs
+cp $F/Results/$n/gromacs/complex/*.sh $F/Results/$n/charmm/lig/gromacs
+cp $F/Results/$n/gromacs/complex/*.pbs $F/Results/$n/charmm/lig/gromacs
+pushd $F/Results/$n/charmm/lig
+cp -r $F/Results/$n/charmm/lig/gromacs $F/Results/$n/charmm/lig/ligand
+cp -r $F/Results/$n/charmm/lig/ligand $F/Results/$n/gromacs/
+echo GROMACS INPUTS GENERATED 
+pushd $F/Results/$n
+mkdir schrodinger 
+mv `ls -p| grep -v /` ./schrodinger
+pushd $F
 done
 done
