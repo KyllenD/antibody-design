@@ -8,34 +8,27 @@
     </requirements>
     <command detect_errors="exit_code"><![CDATA[
 
-        #if $tgz.is_of_type("tgz"):
-            #set $tgz_input = 'charmm-gui.tgz'
-            ln -s '$tgz' '$tgz_input' &&
-        #end if
-
-        tar -zxvf $tgz_input `tar -tf charmm-gui.tgz | grep -E topol.top` &&
-        tar -zxvf $tgz_input `tar -tf charmm-gui.tgz | grep -E .itp` &&
-        cd `ls -d -- */`/gromacs &&
-        grep -E -v "#include" topol.top > topol.top.tmp &&
-        cat `grep -E "#include" topol.top | sed 's/#include//' | sed 's/"//g'`>> galaxy_topol.top &&
+        ln -s '$tgz_input' ./charmm-gui.tgz &&
+        tar -xvf  charmm-gui.tgz && 
+        pushd charmm-gui-*/gromacs &&
+        grep -E -v "\#include" topol.top > topol.top.tmp &&
+        cat `grep -E "\#include" topol.top | sed 's/\#include//' | sed 's/"//g'`>> galaxy_topol.top &&
         cat topol.top.tmp >> galaxy_topol.top &&
-        mv galaxy_topol.top ../../ &&
-        cd ../../ &&
-        rm -r `ls -d -- */` &&
+        cp galaxy_topol.top '$galaxy_topol_out' 
 
     ]]></command>
     <inputs>
-        <param argument="--tgz" type="data" format="tgz"/> 
+        <param name="tgz_input" argument="--tgz" type="data" format="tgz"/> 
     </inputs>
     
     <outputs>
-        <data name="galaxy_topol" format="top"/>
+        <data name="galaxy_topol_out" format="top"/>
     </outputs>
 
     <tests>
         <test expect_num_outputs="1">
-            <param name="tgz" value="charmm-gui.tgz" />
-            <output name="galaxy_topol" file="galaxy_topol.top" ftype="top" />
+            <param name="tgz_input" value="charmm-gui.tgz" />
+            <output name="galaxy_topol_out" file="galaxy_topol.top" ftype="top" />
         </test>
     </tests>
     
