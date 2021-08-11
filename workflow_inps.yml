@@ -1,0 +1,126 @@
+em_steep_0.mdp:
+  class: File
+  galaxy_id: 11ac94870d0bb33a205c72c924d312fb
+em_steep_1.mdp:
+  class: File
+  galaxy_id: 11ac94870d0bb33a5d9fd59164a0a3ff
+em_steep_2.mdp:
+  class: File
+  galaxy_id: 11ac94870d0bb33a62a19ac7d7b1257a
+em_steep_3.mdp:
+  class: File
+  galaxy_id: 11ac94870d0bb33a8f9d9bec7329cf2b
+em_steep_4.mdp:
+  class: File
+  galaxy_id: 11ac94870d0bb33a61784ddc614a2225
+em_steep_5.mdp:
+  class: File
+  galaxy_id: 11ac94870d0bb33abd5b831b171fb64d
+em_steep_6.mdp:
+  class: File
+  galaxy_id: 11ac94870d0bb33a9f83724c1abff525
+em_steep_7.mdp:
+  class: File
+  galaxy_id: 11ac94870d0bb33a9356c56c17b2e67d
+em_steep_8.mdp:
+  class: File
+  galaxy_id: 11ac94870d0bb33aff23ce4549521816
+em_steep_9.mdp:
+  class: File
+  galaxy_id: 11ac94870d0bb33a9e0249d24fbee002
+galaxy_topol.top:
+  class: File
+  path: galaxy_topol.top
+md_0.mdp:
+  class: File
+  galaxy_id: 11ac94870d0bb33a5756d4a5a16c9ca3
+md_1.mdp:
+  class: File
+  galaxy_id: 11ac94870d0bb33a16c12c651f8e8252
+md_2.mdp:
+  class: File
+  galaxy_id: 11ac94870d0bb33a564e75168be20ea4
+md_3.mdp:
+  class: File
+  galaxy_id: 11ac94870d0bb33a0b9009cdf25bf8d4
+md_4.mdp:
+  class: File
+  galaxy_id: 11ac94870d0bb33a94e5a1479645ed6d
+md_5.mdp:
+  class: File
+  galaxy_id: 11ac94870d0bb33a0dbeb5a839607880
+md_6.mdp:
+  class: File
+  galaxy_id: 11ac94870d0bb33abd8e1c431b28f786
+md_7.mdp:
+  class: File
+  galaxy_id: 11ac94870d0bb33a1201f104890d0e42
+md_8.mdp:
+  class: File
+  galaxy_id: 11ac94870d0bb33a82847643b2896dec
+md_9.mdp:
+  class: File
+  galaxy_id: 11ac94870d0bb33a27a6b5330f79df60
+npt_0.mdp:
+  class: File
+  galaxy_id: 11ac94870d0bb33a0abb685d43c5d3f6
+npt_1.mdp:
+  class: File
+  galaxy_id: 11ac94870d0bb33a3bd2f1ef61fb8004
+npt_2.mdp:
+  class: File
+  galaxy_id: 11ac94870d0bb33ad7c6a9e2159a97a2
+npt_3.mdp:
+  class: File
+  galaxy_id: 11ac94870d0bb33abce27543189c7aee
+npt_4.mdp:
+  class: File
+  galaxy_id: 11ac94870d0bb33a5444f7660e9bdbf7
+npt_5.mdp:
+  class: File
+  galaxy_id: 11ac94870d0bb33adcd8c100d6d377f9
+npt_6.mdp:
+  class: File
+  galaxy_id: 11ac94870d0bb33a5737a597337ace20
+npt_7.mdp:
+  class: File
+  galaxy_id: 11ac94870d0bb33afc9740768aa389df
+npt_8.mdp:
+  class: File
+  galaxy_id: 11ac94870d0bb33a55f325dc7e0aaf85
+npt_9.mdp:
+  class: File
+  galaxy_id: 11ac94870d0bb33a39cd7276289c9fc7
+nvt_0.mdp:
+  class: File
+  galaxy_id: 11ac94870d0bb33a7bfa338a82c59f91
+nvt_1.mdp:
+  class: File
+  galaxy_id: 11ac94870d0bb33ad22ab1982a5c67ca
+nvt_2.mdp:
+  class: File
+  galaxy_id: 11ac94870d0bb33ab0eaa83ce8623f70
+nvt_3.mdp:
+  class: File
+  galaxy_id: 11ac94870d0bb33a537ecc45dc4f8035
+nvt_4.mdp:
+  class: File
+  galaxy_id: 11ac94870d0bb33a2785df0ce8e1510f
+nvt_5.mdp:
+  class: File
+  galaxy_id: 11ac94870d0bb33a576eec95bfc5d882
+nvt_6.mdp:
+  class: File
+  galaxy_id: 11ac94870d0bb33ad4c5910d2304b2b4
+nvt_7.mdp:
+  class: File
+  galaxy_id: 11ac94870d0bb33a3c5dd00c3a4ecae0
+nvt_8.mdp:
+  class: File
+  galaxy_id: 11ac94870d0bb33a21cd866ec825bad1
+nvt_9.mdp:
+  class: File
+  galaxy_id: 11ac94870d0bb33ae454bb2d7d223822
+step3_input.gro:
+  class: File
+  path: step3_input.gro
