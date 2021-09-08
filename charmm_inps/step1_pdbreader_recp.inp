@@ -27,8 +27,6 @@ open read unit 10 card name proc.crd
 read coor unit 10 card resid
 close unit 10
 
-stream step1_pdbreader_glycan.str
-
 !Print heavy atoms with unknown coordinates
 coor print sele ( .not. INIT ) .and. ( .not. hydrogen ) end
 
