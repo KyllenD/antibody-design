@@ -2,13 +2,13 @@
 integrator               = sd    
 tinit                    = 0
 dt                       = 0.001
-nsteps                   = 10000
-nstcomm                  = 100
-nstxout                  = 500
-nstvout                  = 500
+nsteps                   = 50000
+nstcomm                  = 1000
+nstxout                  = 5000
+nstvout                  = 5000
 nstfout                  = 0
-nstlog                   = 500
-nstenergy                = 500
+nstlog                   = 5000
+nstenergy                = 5000
 nstxout-compressed       = 0
 cutoff-scheme            = verlet
 nstlist                  = 20
@@ -22,8 +22,8 @@ vdw-modifier             = force-switch
 rvdw-switch              = 1.0
 rvdw                     = 1.2
 DispCorr                 = no
-fourierspacing           = 0.25
-pme_order                = 6
+fourierspacing           = 0.12
+pme_order                = 4
 ewald_rtol               = 1e-06
 epsilon_surface          = 0
 tc_grps                  = System
@@ -40,7 +40,7 @@ delta_lambda             = 0
 calc_lambda_neighbors    = 1        
 init-lambda-state        = %L%
 
-fep-lambdas              = 0.00 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.00
+fep-lambdas              = 0.00 0.025 0.05 0.1 0.15 0.2 0.3 0.5 0.75 1.00 
 
 
 ; Options for the decoupling
@@ -48,7 +48,7 @@ sc-alpha                 = 0.5
 sc-coul                  = no       
 sc-power                 = 1
 sc-sigma                 = 0.3
-nstdhdl                  = 100
+nstdhdl                  = 1000
 gen_vel                  = no 
 
 

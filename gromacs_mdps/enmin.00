@@ -5,8 +5,8 @@ emtol                    = 100
 emstep                   = 0.01
 niter                    = 20
 nbfgscorr                = 10
-nstlog                   = 1
-nstenergy                = 1
+nstlog                   = 1000
+nstenergy                = 1000
 cutoff-scheme            = verlet
 nstlist                  = 10
 ns_type                  = grid
@@ -19,8 +19,8 @@ vdw-modifier             = force-switch
 rvdw-switch              = 1.0
 rvdw                     = 1.2
 DispCorr                 = no
-fourierspacing           = 0.25
-pme_order                = 6
+fourierspacing           = 0.12
+pme_order                = 4
 ewald_rtol               = 1e-06
 epsilon_surface          = 0
 tcoupl                   = no
@@ -32,7 +32,7 @@ delta_lambda             = 0
 calc_lambda_neighbors    = 1        
 init-lambda-state        = %L%
 
-fep-lambdas              = 0.00 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.00
+fep-lambdas              = 0.00 0.025 0.05 0.1 0.15 0.2 0.3 0.5 0.75 1.00 
 
 
 sc-alpha                 = 0.5
