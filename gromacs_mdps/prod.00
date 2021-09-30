@@ -1,8 +1,8 @@
 
 integrator               = sd
 bd-fric                  = 0
-dt                       = 0.001
-nsteps                   = 1000000
+dt                       = 0.002
+nsteps                   = 500000
 nstcomm                  = 1000
 
 nstxout                  = 1000  
