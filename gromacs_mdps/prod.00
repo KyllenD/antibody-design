@@ -74,15 +74,14 @@ sc-coul                  = no
 sc-power                 = 1   
 sc-r-power               = 6
 sc-sigma                 = 0.3
+couple-moltype           = PROA
 couple-lambda0           = vdw-q
 couple-lambda1           = none
-couple-intramol          = no
+couple-intramol          = yes
 
 
 dhdl-derivatives         = yes
-dhdl-print-energy        = no
+dhdl-print-energy        = potential
 separate-dhdl-file       = yes
 dh_hist_size             = 0
-dh_hist_spacing          = 0.1
-
-         
+dh_hist_spacing          = 0.1      
