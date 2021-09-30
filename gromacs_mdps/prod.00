@@ -77,7 +77,7 @@ sc-sigma                 = 0.3
 couple-moltype           = PROA
 couple-lambda0           = vdw-q
 couple-lambda1           = none
-couple-intramol          = yes
+couple-intramol          = no
 
 
 dhdl-derivatives         = yes
