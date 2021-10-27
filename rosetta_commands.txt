@@ -1,2 +1,3 @@
 mab_numbering -s *.pdb –output_ab_scheme AHo
+#het atoms cahin name needs to be change from C to D
 mab_design -s *_0001.pdb -primary_cdrs H3 -graft_design_cdrs H3 -seq_design_cdrs H1 H2 -light_chain lambda -mc_optimize_dG -mc_total_weight .001 -mc_interface_weight .999 -nstruct 1 -input_ab_scheme AHo
