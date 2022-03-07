@@ -53,7 +53,7 @@ if (selection == "segid") {
 xyz <- fit.xyz(fixed = pdb$xyz, mobile = dcd,
    fixed.inds = inds$xyz, mobile.inds = inds$xyz)
 
-rd <- rmsd(xyz[1, inds$xyz], xyz[, inds$xyz],ncore=32)
+rd <- rmsd(xyz[1, inds$xyz], xyz[, inds$xyz],ncore=8)
 
 write.table(rd, file = output, row.names = TRUE,
     col.names = FALSE, quote = FALSE, sep = "\t")
