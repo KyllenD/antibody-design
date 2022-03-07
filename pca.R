@@ -37,10 +37,10 @@ xyz <- fit.xyz(fixed = pdb$xyz, mobile = dcd,
     fixed.inds = inds$xyz, mobile.inds = inds$xyz)
 
 if (method == "FALSE") {
-    pc <- pca.xyz(xyz[, inds$xyz], use.svd = FALSE,ncore=8)
+    pc <- pca.xyz(xyz[, inds$xyz], use.svd = FALSE,ncore=32)
 }
 if (method == "TRUE") {
-    pc <- pca.xyz(xyz[, inds$xyz], use.svd = TRUE,ncore=8)
+    pc <- pca.xyz(xyz[, inds$xyz], use.svd = TRUE,ncore=32)
 }
 
 write.table(pc$au[, 1:2:3], file = output, row.names = TRUE,
