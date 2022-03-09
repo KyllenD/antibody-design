@@ -10,5 +10,5 @@ set mda_start [expr {$start + 1}]
 #puts $file2ID "resnum $mda_start-$mda_end"
 
 set file3ID [open "parmed_ligand_selection.txt" "w"]
-puts $file3ID $mda_start-$end
+puts $file3ID $mda_start-$mda_end
 quit
