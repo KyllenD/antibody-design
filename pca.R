@@ -60,3 +60,12 @@ png(pc1_rmsf)
 plot.bio3d(pc$au[, 1], ylab = "PC1 (A)", xlab = "Residue Position", typ = "l")
 points(pc$au[, 2], typ = "l", col = "blue")
 dev.off()
+
+par(mfrow = c(3, 1), cex = 0.75, mar = c(3, 4, 1, 1))
+plot.bio3d(pc$au[,1], ylab="PC1")
+plot.bio3d(pc$au[,2], ylab="PC2")
+plot.bio3d(pc$au[,3], ylab="PC3")
+
+mktrj.pca(pc, pc=1, file="pc1.pdb")
+mktrj.pca(pc, pc=2, file="pc2.pdb")
+mktrj.pca(pc, pc=3, file="pc3.pdb")
